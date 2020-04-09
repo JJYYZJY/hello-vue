@@ -1,5 +1,9 @@
 <template>
-  <div>page1 {{ msg }}</div>
+  <div>
+    page1 {{ msg }}
+    <br />
+    <a-button>button</a-button>
+  </div>
 </template>
 
 <script>
