@@ -1,7 +1,14 @@
 <template>
-  <div>
+  <div :class="[`nav-theme-${navTheme}`, `nav-layout-${navLayout}`]">
     <a-layout id="components-layout-demo-side" style="min-height: 100vh">
-      <a-layout-sider :trigger="null" collapsible v-model="collapsed">
+      <a-layout-sider
+        v-if="navLayout === 'left'"
+        :theme="navTheme"
+        :trigger="null"
+        collapsible
+        v-model="collapsed"
+      >
+        <div class="logo">ant desgin vue pro</div>
         <SiderMenu />
       </a-layout-sider>
       <a-layout>
@@ -36,6 +43,14 @@ export default {
       collapsed: false
     };
   },
+  computed: {
+    navTheme() {
+      return this.$route.query.navTheme || "dark";
+    },
+    navLayout() {
+      return this.$route.query.navLayout || "left";
+    }
+  },
   components: {
     Header,
     Footer,
@@ -45,6 +60,12 @@ export default {
 };
 </script>
 <style scoped>
+.nav-theme-dark >>> .logo {
+  color: aqua;
+}
+.nav-theme-light >>> .logo {
+  color: black;
+}
 .trigger {
   padding: 0 20px;
   line-height: 64px;

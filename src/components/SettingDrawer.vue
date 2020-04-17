@@ -17,12 +17,18 @@
       <div>
         <div>
           <h2>主题</h2>
-          <a-radio-group v-model="navTheme">
+          <a-radio-group
+            :value="$route.query.navTheme || 'dark'"
+            @change="e => handleSettingChange('navTheme', e.target.value)"
+          >
             <a-radio value="dark">黑色</a-radio>
             <a-radio value="light">白色</a-radio>
           </a-radio-group>
           <h2>菜单</h2>
-          <a-radio-group v-model="navLayout">
+          <a-radio-group
+            :value="$route.query.navLayout || 'left'"
+            @change="e => handleSettingChange('navLayout', e.target.value)"
+          >
             <a-radio value="left">左侧</a-radio>
             <a-radio value="top">顶部</a-radio>
           </a-radio-group>
@@ -35,9 +41,7 @@
 export default {
   data() {
     return {
-      visible: false,
-      navTheme: "dark",
-      navLayout: "left"
+      visible: false
     };
   },
   methods: {
@@ -46,6 +50,9 @@ export default {
     },
     onClose() {
       this.visible = false;
+    },
+    handleSettingChange(type, value) {
+      this.$router.push({ query: { ...this.$route.query, [type]: value } });
     }
   }
 };
