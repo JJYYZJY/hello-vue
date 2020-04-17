@@ -1,5 +1,5 @@
 <template>
-  <div>sider</div>
+  <div></div>
 </template>
 
 <script>

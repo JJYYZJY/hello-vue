@@ -1,6 +1,6 @@
 import Vue from "vue";
 import VueRouter from "vue-router";
-import Page1 from "../views/Page1.vue";
+import Home from "../views/Home.vue";
 import nProgress from "nprogress";
 import "nprogress/nprogress.css";
 import NotFound from "../views/404.vue";
@@ -8,21 +8,17 @@ Vue.use(VueRouter);
 
 const routes = [
   {
-    path: "/page1",
-    name: "page1",
-    component: Page1
+    path: "/home",
+    name: "home",
+    component: Home
   },
   {
-    path: "/page2",
-    name: "page2",
+    path: "/about",
+    name: "about",
     // route level code-splitting
     // this generates a separate chunk (about.[hash].js) for this route
     // which is lazy-loaded when the route is visited.
-    component: () => import(/* webpackChunkName: "page" */ "../views/Page2")
-  },
-  {
-    path: "/page",
-    redirect: "/page1"
+    component: () => import(/* webpackChunkName: "page" */ "../views/About")
   },
   {
     path: "/",
@@ -31,17 +27,19 @@ const routes = [
     children: [
       {
         path: "/",
-        redirect: "/page3"
+        redirect: "/page1"
       },
       {
-        path: "/page3",
-        name: "page3",
-        component: () => import("../views/Page1")
+        path: "/page1",
+        name: "page1",
+        component: () =>
+          import(/* webpackChunkName: "layout" */ "../views/Page1")
       },
       {
-        path: "/page4",
-        name: "page4",
-        component: () => import("../views/Page2")
+        path: "/page2",
+        name: "page2",
+        component: () =>
+          import(/* webpackChunkName: "layout" */ "../views/Page2")
       }
     ]
   },
