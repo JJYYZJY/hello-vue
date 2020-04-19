@@ -9,11 +9,13 @@ Vue.use(VueRouter);
 const routes = [
   {
     path: "/home",
+    meta: { icon: "home", title: "主页" },
     name: "home",
     component: Home
   },
   {
     path: "/about",
+    meta: { icon: "question-circle", title: "关于" },
     name: "about",
     // route level code-splitting
     // this generates a separate chunk (about.[hash].js) for this route
@@ -22,6 +24,8 @@ const routes = [
   },
   {
     path: "/",
+    meta: { icon: "copy", title: "页面" },
+    name: "page",
     component: () =>
       import(/* webpackChunkName: "layout" */ "../layout/BasicLayout"),
     children: [
@@ -31,12 +35,14 @@ const routes = [
       },
       {
         path: "/page1",
+        meta: { title: "页面1" },
         name: "page1",
         component: () =>
           import(/* webpackChunkName: "layout" */ "../views/Page1")
       },
       {
         path: "/page2",
+        meta: { title: "页面2" },
         name: "page2",
         component: () =>
           import(/* webpackChunkName: "layout" */ "../views/Page2")
@@ -46,6 +52,7 @@ const routes = [
   {
     path: "*",
     name: "404",
+    hideInMenu: true,
     component: NotFound
   }
 ];
