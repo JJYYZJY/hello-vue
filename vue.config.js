@@ -13,7 +13,7 @@ module.exports = {
         bypass: function(req, res) {
           if (req.headers.accept.indexOf("html") !== -1) {
             return "/index.html";
-          } else {
+          } else if (process.env.MOCK !== "none") {
             const name = req.path
               .split("/api/")[1]
               .split("/")
