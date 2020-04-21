@@ -3,18 +3,20 @@
     page1 {{ msg }}
     <br />
     <a-button v-auth="['admin']">button</a-button>
-    <img :src="logo" />
+    <Logo />
   </div>
 </template>
 
 <script>
-import logo from "@/assets/home.svg";
+import Logo from "@/assets/home.svg";
 export default {
   data() {
     return {
-      msg: "test",
-      logo: logo
+      msg: "test"
     };
+  },
+  components: {
+    Logo
   }
 };
 </script>
