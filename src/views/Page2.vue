@@ -1,8 +1,17 @@
 <template>
-  <div>page2</div>
+  <div>
+    page2
+    <br />
+    <Chart />
+  </div>
 </template>
 
 <script>
-export default {};
+import Chart from "../components/Chart";
+export default {
+  components: {
+    Chart
+  }
+};
 </script>
 <style scoped></style>
