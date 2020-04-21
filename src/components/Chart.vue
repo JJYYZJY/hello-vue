@@ -14,15 +14,15 @@ export default {
     }
   },
   watch: {
-    // option(val) {
-    //   this.chart.setOption(val);
-    // }
-    option: {
-      handler(val) {
-        this.chart.setOption(val);
-      },
-      deep: true
+    option(val) {
+      this.chart.setOption(val);
     }
+    // option: {
+    //   handler(val) {
+    //     this.chart.setOption(val);
+    //   },
+    //   deep: true
+    // }
   },
   created() {
     this.resize = debounce(this.resize, 300);
