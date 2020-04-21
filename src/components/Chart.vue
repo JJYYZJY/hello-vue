@@ -5,7 +5,11 @@
 <script>
 import echarts from "echarts";
 import { addListener, removeListener } from "resize-detector";
+import debounce from "lodash/debounce";
 export default {
+  created() {
+    this.resize = debounce(this.resize, 300);
+  },
   mounted() {
     // 基于准备好的dom，初始化echarts实例
     this.chart = echarts.init(this.$refs.chartDom);
