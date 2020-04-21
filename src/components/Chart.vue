@@ -1,14 +1,15 @@
 <template>
-  <div ref="chartDom" style="height: 100px"></div>
+  <div ref="chartDom" style="height: 400px"></div>
 </template>
 
 <script>
 import echarts from "echarts";
+import { addListener, removeListener } from "resize-detector";
 export default {
   mounted() {
     // 基于准备好的dom，初始化echarts实例
-    var myChart = echarts.init(this.$refs.chartDom);
-
+    this.chart = echarts.init(this.$refs.chartDom);
+    addListener(this.$refs.chartDom, this.resize);
     // 指定图表的配置项和数据
     var option = {
       title: {
@@ -32,7 +33,17 @@ export default {
     };
 
     // 使用刚指定的配置项和数据显示图表。
-    myChart.setOption(option);
+    this.chart.setOption(option);
+  },
+  beforeDestroy() {
+    removeListener(this.$refs.chartDom, this.resize);
+    this.chart.dispose();
+    this.chart = null;
+  },
+  methods: {
+    resize() {
+      this.chart.resize();
+    }
   }
 };
 </script>
