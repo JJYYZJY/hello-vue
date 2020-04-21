@@ -2,7 +2,7 @@
   <div>
     page1 {{ msg }}
     <br />
-    <a-button>button</a-button>
+    <a-button v-auth="['admin']">button</a-button>
   </div>
 </template>
 
