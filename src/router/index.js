@@ -39,14 +39,14 @@ const routes = [
       },
       {
         path: "/page1",
-        meta: { title: "页面1", authority: ["admin"] },
+        meta: { title: "页面1", authority: ["user", "admin"] },
         name: "page1",
         component: () =>
           import(/* webpackChunkName: "layout" */ "../views/Page1")
       },
       {
         path: "/page2",
-        meta: { title: "页面2", authority: ["user"] },
+        meta: { title: "页面2", authority: ["admin"] },
         name: "page2",
         component: () =>
           import(/* webpackChunkName: "layout" */ "../views/Page2")
