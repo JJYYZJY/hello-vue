@@ -4,15 +4,12 @@ import Home from "../views/Home.vue";
 import nProgress from "nprogress";
 import "nprogress/nprogress.css";
 import NotFound from "../views/404.vue";
+import AuthorityNotFound from "../views/403.vue";
+import findLast from "lodash/findLast";
+import { check, isLogin } from "../utils/auth";
 Vue.use(VueRouter);
 
 const routes = [
-  {
-    path: "/home",
-    meta: { icon: "home", title: "主页" },
-    name: "home",
-    component: Home
-  },
   {
     path: "/about",
     meta: { icon: "question-circle", title: "关于" },
@@ -31,23 +28,35 @@ const routes = [
     children: [
       {
         path: "/",
-        redirect: "/page1"
+        redirect: "/home"
+      },
+      {
+        path: "/home",
+        meta: { icon: "home", title: "主页" },
+        name: "home",
+        component: Home
       },
       {
         path: "/page1",
-        meta: { title: "页面1" },
+        meta: { title: "页面1", authority: ["admin"] },
         name: "page1",
         component: () =>
           import(/* webpackChunkName: "layout" */ "../views/Page1")
       },
       {
         path: "/page2",
-        meta: { title: "页面2" },
+        meta: { title: "页面2", authority: ["user"] },
         name: "page2",
         component: () =>
           import(/* webpackChunkName: "layout" */ "../views/Page2")
       }
     ]
+  },
+  {
+    path: "/403",
+    name: "403",
+    hideInMenu: true,
+    component: AuthorityNotFound
   },
   {
     path: "*",
@@ -67,7 +76,22 @@ router.beforeEach((to, from, next) => {
   if (to.path !== from.path) {
     nProgress.start();
   }
-  next();
+  //获取要去的路径和父路径中配置的权限信息
+  let record = findLast(to.matched, item => item.meta.authority);
+  if (record && !check(record.meta.authority)) {
+    if (!isLogin() && to.path !== "/home") {
+      next({
+        path: "/home"
+      });
+    } else if (to.path !== "/403") {
+      next({
+        path: "/403"
+      });
+    }
+    nProgress.done();
+  } else {
+    next();
+  }
 });
 
 router.afterEach(() => {
