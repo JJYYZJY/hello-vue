@@ -82,7 +82,8 @@ router.beforeEach((to, from, next) => {
   if (record && !check(record.meta.authority)) {
     if (!isLogin() && to.path !== "/home") {
       next({
-        path: "/home"
+        path: "/home",
+        replace: true
       });
     } else if (to.path !== "/403") {
       notification.error({
@@ -90,7 +91,8 @@ router.beforeEach((to, from, next) => {
         description: "暂无权限 请联系管理员."
       });
       next({
-        path: "/403"
+        path: "/403",
+        replace: true
       });
     }
     nProgress.done();
