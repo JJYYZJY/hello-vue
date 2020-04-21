@@ -7,6 +7,7 @@ import NotFound from "../views/404.vue";
 import AuthorityNotFound from "../views/403.vue";
 import findLast from "lodash/findLast";
 import { check, isLogin } from "../utils/auth";
+import { notification } from "ant-design-vue";
 Vue.use(VueRouter);
 
 const routes = [
@@ -84,6 +85,10 @@ router.beforeEach((to, from, next) => {
         path: "/home"
       });
     } else if (to.path !== "/403") {
+      notification.error({
+        message: "403",
+        description: "暂无权限 请联系管理员."
+      });
       next({
         path: "/403"
       });
