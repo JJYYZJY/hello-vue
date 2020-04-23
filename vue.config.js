@@ -1,3 +1,4 @@
+const webpack = require("webpack");
 module.exports = {
   css: {
     loaderOptions: {
@@ -8,6 +9,9 @@ module.exports = {
         javascriptEnabled: true
       }
     }
+  },
+  configureWebpack: {
+    plugins: [new webpack.IgnorePlugin(/^\.\/locale$/, /moment$/)]
   },
   chainWebpack: config => {
     const svgRule = config.module.rule("svg");

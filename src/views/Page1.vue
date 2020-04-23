@@ -2,6 +2,8 @@
   <div>
     page1 {{ msg }}
     <br />
+    <a-date-picker />
+    <br />
     <a-button v-auth="['admin']">button</a-button>
     <Logo />
   </div>
